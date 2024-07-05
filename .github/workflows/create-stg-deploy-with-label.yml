@@ -5,7 +5,8 @@ on:
     types: [labeled]
 jobs:
   push:
-    if: ${{ github.event_name == 'push' && (contains(github.event.*.labels.*.name, 'stg-deploy')) }}
+    uses: snnaplab/get-labels-action@v1
+    if: ${{ github.event_name == 'pull_request' && contains(fromJSON(env.LABELS), 'stg-deploy') }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
