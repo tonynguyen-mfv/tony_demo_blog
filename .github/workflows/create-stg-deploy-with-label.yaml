@@ -1,12 +1,5 @@
 name: Create Stg deploy with label
-on:
-  push:
-    branches:
-      - release
-  pull_request:
-    branches:
-      - release
-    types: [labeled]
+on: [push]
 jobs:
   create_stg_deploy_with_label:
     name: Create or Update Stg deploy with label
