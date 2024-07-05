@@ -2,8 +2,7 @@ name: Stg deploy with label
 on:
   push:
   pull_request:
-    types:
-      - unlabeled
+    types: [labeled]
 jobs:
   push:
     if: ${{ github.event_name == 'push' && (contains(github.event.push.labels.*.name, 'stg-deploy')) }}
