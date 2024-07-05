@@ -1,8 +1,23 @@
 name: Stg deploy with label
-on: [push]
+on:
+  push:
+    branches:
+      - /release\d+\.\d+\.\d+/
+  pull_request:
+    types:
+      - labeled
+      - unlabeled
 jobs:
-  create-stg-deployment:
-    if: ${{ github.event.label.name == 'stg-deploy' || contains(github.event.pull_request.labels.*.name, 'stg-deploy') || || contains(github.event.push.labels.*.name, 'stg-deploy') }}
+  push:
+    if: ${{ github.event_name == 'push' && (contains(github.event.push.labels.*.name, 'stg-deploy')) }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+  pull_request:
+    if: ${{ github.event_name == 'pull_request' && (github.event.label.name == 'stg-deploy' || contains(github.event.pull_request.labels.*.name, 'stg-deploy')) }}
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
