@@ -2,10 +2,9 @@ name: Stg deploy with label
 on: [push]
 jobs:
   create-stg-deployment:
-    # if: ${{ github.event.label.name == 'stg-deploy' || contains(github.event.pull_request.labels.*.name, 'stg-deploy') }}
+    if: ${{ github.event.label.name == 'stg-deploy' || contains(github.event.pull_request.labels.*.name, 'stg-deploy') || || contains(github.event.push.labels.*.name, 'stg-deploy') }}
     runs-on: ubuntu-latest
     steps:
-      - run: echo "github.event.pull_request.labels ${{ github.event.pull_request.labels }}."
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
