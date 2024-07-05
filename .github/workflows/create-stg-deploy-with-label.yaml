@@ -2,13 +2,11 @@ name: Create Stg deploy with label
 on:
   push:
     branches:
-      - /release\d+\.\d+\.\d+/
+      - release1.1.0
   pull_request:
     branches:
-      - /release\d+\.\d+\.\d+/
+      - release1.1.0
     types: [labeled]
-env:
-  APP_NAME: pfm-web
 jobs:
   create_stg_deploy_with_label:
     name: Create or Update Stg deploy with label
@@ -16,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Echo event info
-        run: echo "APP_NAME: ${{ env.APP_NAME }}"
         run: echo "GITHUB_EVENT_NAME: ${{ github.event_name }}"
         run: echo "GITHUB_REF: ${{ github.ref }}"
         run: echo "GITHUB_base_ref: ${{ github.base_ref }}"
