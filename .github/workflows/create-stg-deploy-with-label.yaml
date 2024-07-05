@@ -5,7 +5,7 @@ on:
 env:
   APP_NAME: pfm-web
 jobs:
-  heroku_review_app_build:
+  create_stg_deploy_with_label:
     name: Create or Update Stg deploy with label
     if: ${{ github.event.label.name == 'deploy-stg' || contains(github.event.pull_request.labels.*.name, 'deploy-stg') }}
     runs-on: ubuntu-latest
