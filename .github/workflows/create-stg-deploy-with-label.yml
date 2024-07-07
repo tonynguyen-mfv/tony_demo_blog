@@ -14,7 +14,6 @@ jobs:
         if: contains(steps.label-the-PR.outputs.all-labels, 'stg-deploy') 
         run:
           echo "${{ github.event_name }} event. \n
-            GITHUB_REF ${{ github.ref }} \n
             GITHUB_head_ref ${{ github.ref_name }} \n
             GITHUB_head_sha ${{ github.sha }}"
   pull_request:
@@ -22,7 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "GITHUB_REF ${{ github.ref }}"
       - run: echo "GITHUB_head_ref ${{ github.head_ref }}"
       - run: echo "GITHUB_head_sha ${{ github.event.pull_request.head.sha }}"
       - run: echo "🍏 This job's status is ${{ job.status }}."
