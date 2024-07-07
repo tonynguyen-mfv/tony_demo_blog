@@ -1,8 +1,14 @@
-name: Stg deploy with label
+name: Create Stg deploy with label
 on:
   push:
+    branches:
+      - release
+      - /release\d+\.\d+\.\d+/
   pull_request:
     types: [labeled]
+    branches:
+      - release
+      - /release\d+\.\d+\.\d+/
 jobs:
   push:
     if: ${{ github.event_name == 'push' }}
@@ -12,10 +18,10 @@ jobs:
         uses: actions/labeler@v5
       - id: deploy-to-stg
         if: contains(steps.label-the-PR.outputs.all-labels, 'stg-deploy') 
-        run:
-          echo "${{ github.event_name }} event. \n
-            GITHUB_head_ref ${{ github.ref_name }} \n
-            GITHUB_head_sha ${{ github.sha }}"
+        run: |
+          echo "${{ github.event_name }} event."
+          echo "GITHUB_head_ref ${{ github.ref_name }}"
+          echo "GITHUB_head_sha ${{ github.sha }}"
   pull_request:
     if: ${{ github.event_name == 'pull_request' && (github.event.label.name == 'stg-deploy' || contains(github.event.pull_request.labels.*.name, 'stg-deploy')) }}
     runs-on: ubuntu-latest
