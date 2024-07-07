@@ -15,9 +15,8 @@ jobs:
         run:
           echo "${{ github.event_name }} event. \n
             GITHUB_REF ${{ github.ref }} \n
-            GITHUB_head_ref ${{ github.head_ref }} \n
-            GITHUB_head_sha ${{ github.event.pull_request.head.sha }} \n
-            🍏 This job's status is ${{ job.status }}."
+            GITHUB_head_ref ${{ inputs.branch }} \n
+            GITHUB_head_sha ${{ github.sha }}"
   pull_request:
     if: ${{ github.event_name == 'pull_request' && (github.event.label.name == 'stg-deploy' || contains(github.event.pull_request.labels.*.name, 'stg-deploy')) }}
     runs-on: ubuntu-latest
