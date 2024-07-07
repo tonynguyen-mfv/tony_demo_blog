@@ -3,7 +3,6 @@ on:
   pull_request:
     types: [unlabeled, closed]
     branches:
-      - release
       - /release\d+\.\d+\.\d+/
 jobs:
   pull_request:
