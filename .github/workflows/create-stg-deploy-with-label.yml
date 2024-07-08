@@ -2,7 +2,7 @@ name: Create Stg deploy with label
 on:
   push:
     branches:
-      - /(release\d+\.\d+\.\d+)/
+      - release\d+\.\d+\.\d+
       
   pull_request:
     types: [labeled]
