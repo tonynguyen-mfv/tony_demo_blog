@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [unlabeled, closed]
     branches:
-      - release\d+\.\d+\.\d+
+      - release
 jobs:
   pull_request:
     if: ${{(github.event.label.name == 'stg-deploy' || contains(github.event.pull_request.labels.*.name, 'stg-deploy')) }}

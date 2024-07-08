@@ -6,7 +6,7 @@ on:
   pull_request:
     types: [labeled]
     branches:
-      - release\d+\.\d+\.\d+
+      - release
 jobs:
   push:
     if: ${{ github.event_name == 'push' }}
