@@ -11,21 +11,7 @@ on:
 jobs:
   push:
     if: ${{ github.event_name == 'push' }}
-    # runs-on: ubuntu-latest
-    # steps:
-    #   - name: Check PR labels action step
-    #     id: check_pr_labels
-    #     uses: shioyang/check-pr-labels-on-push-action@v1.0.12
-    #     with:
-    #       github-token: ${{ secrets.GITHUB_TOKEN }}
-    #       labels: '["stg-deploy"]'
-    #     timeout-minutes: 5
-    #   - id: deploy-to-stg
-    #     if: contains(steps.check_pr_labels.outputs.result, 'stg-deploy') 
-    #     run: |
-    #       echo "event_name: ${{ github.event_name }} ref_name: ${{ github.ref_name }} sha: ${{ github.sha }}"
     runs-on: ubuntu-latest
-    name: A job to check the PR labels contain given labels
     steps:
       - name: Check PR labels action step
         id: check_pr_labels
@@ -34,8 +20,10 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           labels: '["stg-deploy"]'
         timeout-minutes: 5
-      - name: See result
-        run: echo "${{ steps.check_pr_labels.outputs.result }}"
+      - id: deploy-to-stg
+        if: ${{ steps.check_pr_labels.outputs.result == true }}
+        run: |
+          echo "event_name: ${{ github.event_name }} ref_name: ${{ github.ref_name }} sha: ${{ github.sha }}"
   # pull_request:
   #   if: ${{ github.event_name == 'pull_request' && (github.event.label.name == 'stg-deploy' || contains(github.event.pull_request.labels.*.name, 'stg-deploy')) }}
   #   runs-on: ubuntu-latest
