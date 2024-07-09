@@ -3,10 +3,10 @@ on:
   push:
     branches:
       - release\d+\.\d+\.\d+
-  pull_request:
-    types: [labeled]
-    branches:
-      - release
+  # pull_request:
+  #   types: [labeled]
+  #   branches:
+  #     - release
 jobs:
   push:
     if: ${{ github.event_name == 'push' }}
@@ -18,13 +18,13 @@ jobs:
         if: contains(steps.label-the-PR.outputs.all-labels, 'stg-deploy') 
         run: |
           echo "event_name: ${{ github.event_name }} ref_name: ${{ github.ref_name }} sha: ${{ github.sha }}"
-  pull_request:
-    if: ${{ github.event_name == 'pull_request' && (github.event.label.name == 'stg-deploy' || contains(github.event.pull_request.labels.*.name, 'stg-deploy')) }}
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "GITHUB_head_ref ${{ github.head_ref }}"
-      - run: echo "GITHUB_head_sha ${{ github.event.pull_request.head.sha }}"
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+  # pull_request:
+  #   if: ${{ github.event_name == 'pull_request' && (github.event.label.name == 'stg-deploy' || contains(github.event.pull_request.labels.*.name, 'stg-deploy')) }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+  #     - run: echo "GITHUB_head_ref ${{ github.head_ref }}"
+  #     - run: echo "GITHUB_head_sha ${{ github.event.pull_request.head.sha }}"
+  #     - run: echo "🍏 This job's status is ${{ job.status }}."
   
   
